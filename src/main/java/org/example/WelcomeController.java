@@ -15,5 +15,5 @@ public class WelcomeController {
     }
 }
 
-//http://localhost:8080/api/welcome         http://localhost/app.html
+
 

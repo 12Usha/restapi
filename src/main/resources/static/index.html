@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS REST Call</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="MainController">
+
+<h1>Welcome Message</h1>
+<div ng-if="loading">Loading...</div>
+<div ng-if="error">{{ error }}</div>
+
+<div ng-if="welcomeMessage">{{ welcomeMessage }}</div>
+
+<script>
+        var app = angular.module('myApp', []);
+
+        app.controller('MainController', ['$scope', '$http', function($scope, $http) {
+            $scope.loading = true;
+            $scope.welcomeMessage = '';
+            $scope.error = null;
+            var apiUrl = "http://localhost:8080/welcome";
+            $http.get(apiUrl)
+                .then(function(response) {
+                    $scope.welcomeMessage = response.data;
+
+                    $scope.loading = false;
+                }, function(error) {
+                    $scope.error = 'Error fetching message: ' + error.statusText;
+                    $scope.loading = false;
+                });
+        }]);
+    </script>
+</body>
+</html>
